@@ -1,6 +1,6 @@
 var elementalOxesList=new Array[];
+var oxesWithLead=new Array[];
 ModPE.setItem(140,15,15,"Lead");
-@Extend
 function entityAddedHook(v){
   if(Entity.getEntityTypeId(v)==11){
     if(Math.random()<0.5){
@@ -14,7 +14,10 @@ function entityAddedHook(v){
   }
 }
 function attackHook(a,v){
-  
+  if(getCarriedItem()==140){
+    if(!(9<Entity.getMobTypeId(v)<14))return;
+    oxesWithLead[oxesWithLead.length]=v;
+  }
 }
 function modTick(){
   for(var i=0;i<elementalOxesList;i++){
