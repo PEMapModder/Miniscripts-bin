@@ -1,5 +1,5 @@
-var elementalOxesList=new Array[];
-var oxesWithLead=new Array[];
+var elementalOxesList=[];
+var oxesWithLead=[];
 ModPE.setItem(140,15,15,"Lead");
 function entityAddedHook(v){
   if(Entity.getEntityTypeId(v)==11){
