@@ -1,5 +1,5 @@
 class elementalLaserSubclass extends ElementsPE{ // incorrect usage
-ModPE.setItem(511,12,5,"Elemental Laser Gun");//did i misplace x and y? but pleas. i am terrible at arts
+ModPE.setItem(511,12,5,"Elemental Laser Gun");//did i misplace x and y? but please u make the texture. i am terrible at arts
 ModPE.setItem(510,13,5,"Elemental Laser Gun Batteries");
 ModPE.setItem(509,14,5,"Elemental Explosive Laser Gun");
 ModPE.setItem(508,15,5,"Elemental Explosive Laser Gun Batteries");
@@ -44,9 +44,9 @@ var throughZ;
 var blockIs;
 var blockDataIs;
 while(carryOn&&0<=beamX<256&&0<=beamY<128&&0<=beamZ<256){
-  var xDistance=Math.cos((90-yaw)/180*Math.PI)*accuracy;
-  var zDistance=Math.sin((90-yaw)/180*Math.PI)*accuracy;
-  var yDistance=Math.sin(negPitch/180*Math.PI)*accuracy;
+  var xDistance=Math.cos((90-yaw)/180*Math.PI)*accuracy*Math.sin(negPitch);
+  var zDistance=Math.sin((90-yaw)/180*Math.PI)*accuracy*Math.sin(negPitch);
+  var yDistance=Math.sin(negPitch/180*Math.PI)*accuracy*Math.sin(negPitch);
   beamX=beamX+xDistance;
   beamY=beamY+yDistance;
   beamZ=beamZ+zDistance;
