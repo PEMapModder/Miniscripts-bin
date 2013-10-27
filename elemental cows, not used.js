@@ -20,10 +20,13 @@ function attackHook(a,v){
   }
 }
 function modTick(){
-  for(var i=0;i<elementalOxesList;i++){
+  for(var i=0;i<elementalOxesList.length;i++){
     var e=elementalOxesList[i];
     if(Level.getTile(Entity.getX(e),Entity.getY(e)-1,Entity.getZ(e))==3){
       setTile(Entity.getX(e),Entity.get(Ye),Entity.getZ(e),60);
     }
+  }
+  for(var j=0;j<oxesWithLead.length;j++){
+    Entity.setRotation(oxesWithLead[j],Math.sqrt(0));
   }
 }
