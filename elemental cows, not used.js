@@ -1,5 +1,6 @@
 var elementalOxesList=[];
-var oxesWithLead=[];
+var leadedEntToPlayerList=[];
+var leadedEntToFencePostList=[];
 ModPE.setItem(140,15,15,"Lead");
 function entityAddedHook(v){
   if(Entity.getEntityTypeId(v)==11){
@@ -13,10 +14,23 @@ function entityAddedHook(v){
     }
   }
 }
+function useItem(x,y,z,i,b,s){
+  if(i==140){//&&b==fencepost what is the blockId?
+    for(var i=0;i<leadedEntToPlayerList.length;i++){
+      leadedEntToFencePostList[leadedEntToFencePostList.length]=[leadedEntToPlayerList[i],x,y,z];
+    }
+    leadedEntToPlayerList=[];
+  }
+}
 function attackHook(a,v){
-  if(getCarriedItem()==140){
-    if(!(9<Entity.getMobTypeId(v)<14))return;
-    oxesWithLead[oxesWithLead.length]=v;
+  if(10<=Entity.getMobTypeId(v)<=13&&getCarriedItem()==140){
+    for(var i=0;i<leadedEntToPlayerList.length;i++){
+      if(leadedEntToPlayerList[i]==v){
+        leadedEntToPlayerList[i]=-1;
+        return;
+      }
+    }
+    leadedEntToPlayerList[leadedEntToPlayerList.length]=v;
   }
 }
 function modTick(){
@@ -26,7 +40,19 @@ function modTick(){
       setTile(Entity.getX(e),Entity.get(Ye),Entity.getZ(e),60);
     }
   }
-  for(var j=0;j<oxesWithLead.length;j++){
-    Entity.setRotation(oxesWithLead[j],Math.sqrt(0));
+  for(var j=0;j<leadedEntToPlayerList.length;j++){
+    setYawToHere(leadedEntToPlayerList[j],Player.getX(),Player.getY,Player.getZ());
   }
+  var doingThisNow=[];
+  for(var k=0;k<leadedEntToFencePostList.length;k++){
+    doingThisNow=leadedEntToFencePostList;
+    setYawToHere(doingThisNow[0],doingThisNow[1],doingThisNow[2],doingThisNow[3]);
+  }
+}
+function setYawToHere(ent,toX,toY,toZ){
+  var xDiff=Entity.getX(ent)-toX;
+  var yDiff=Entity.getY(ent)-toY;
+  var zDiff=Entity.getZ(ent)-toZ;
+  var planeDistance=Math.sqrt(xDiff^2+zDiff^2);
+  Entity.setRotation(ent,Math.arccos(zDiff/planeDistance)+180,0);//Maybe change pitch into something else for better performance?
 }
