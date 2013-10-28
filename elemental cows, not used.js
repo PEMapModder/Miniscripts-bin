@@ -49,7 +49,7 @@ function modTick(){
   }
   var doingThisNow=[];
   for(var k=0;k<leadedEntToFencePostList.length;k++){
-    doingThisNow=leadedEntToFencePostList;
+    doingThisNow=leadedEntToFencePostList[k];
     setYawToHere(doingThisNow[0],doingThisNow[1],doingThisNow[2],doingThisNow[3]);
   }
 }
