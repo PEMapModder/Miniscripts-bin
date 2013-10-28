@@ -15,7 +15,7 @@ function entityAddedHook(v){
   }
 }
 function useItem(x,y,z,i,b,s){
-  if(i==140){//&&b==fencepost what is the blockId?
+  if(i==140&&b==85){
     for(var i=0;i<leadedEntToPlayerList.length;i++){
       leadedEntToFencePostList[leadedEntToFencePostList.length]=[leadedEntToPlayerList[i],x,y,z];
     }
