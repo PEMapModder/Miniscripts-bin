@@ -1,6 +1,7 @@
 /*
 * Created by QyMineAsap and DonalddoesMC
 * This is only a copy of the original script
+* PEMapModder has no participation in this version of the script
 */
 ModPE.setItem (500, 9, 3, "Hellfire Sword");
 ModPE.setItem (501, 10, 3, "TreeRoot Shovel");
