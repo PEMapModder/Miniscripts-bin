@@ -1,7 +1,7 @@
 var elementalOxesList=[];
 var leadedEntToPlayerList=[];
 var leadedEntToFencePostList=[];
-ModPE.setItem(140,15,15,"Lead");
+ModPE.setItem(140,15,15,"Lead");//whatever x and y
 function entityAddedHook(v){
   if(Entity.getEntityTypeId(v)==11){
     if(Math.random()<0.5){
@@ -36,6 +36,22 @@ function attackHook(a,v){
     }
     leadedEntToPlayerList[leadedEntToPlayerList.length]=v;
   }
+}
+function deathHook(m,v){
+	    var inArray=false;
+     if(m==getPlayerEnt()){//maybe wrong?   
+     	    for(var i=0;i<elementalOxesList.length;i++){
+     	    	    if(elementalOxesList[i]==v){
+          	    	    inArray=true;
+          	    }
+	    	    }
+     }
+     if(inArray){
+     	    preventDefault();
+          var vX=Entity.getX(v),vY=Entity.getY(v),vZ=Entity.getZ(v);   
+          Entity.setPosition(v,128,-1,128);
+          Level.dropItem(vX,vY,vZ,1,141,Math.floor(4*Math.random()));
+     }
 }
 function modTick(){
   for(var i=0;i<elementalOxesList.length;i++){
