@@ -22,10 +22,10 @@ function useItem(x,y,z,i,b,s){
     leadedEntToPlayerList=[];
   }
 }
-/**
+/**********************************************************
  * Donald this is when we want to set a block with same physics of fence post but
  * with different texture, while the original fence post texture cannot be deleted
- **/
+ **********************************************************/
 function attackHook(a,v){
   if(10<=Entity.getMobTypeId(v)<=13&&getCarriedItem()==140){
     for(var i=0;i<leadedEntToPlayerList.length;i++){
@@ -41,7 +41,7 @@ function modTick(){
   for(var i=0;i<elementalOxesList.length;i++){
     var e=elementalOxesList[i];
     if(Level.getTile(Entity.getX(e),Entity.getY(e)-1,Entity.getZ(e))==3){
-      setTile(Entity.getX(e),Entity.get(Ye),Entity.getZ(e),60);
+      setTile(Entity.getX(e),Entity.getY(e)-1,Entity.getZ(e),60);
     }
   }
   for(var j=0;j<leadedEntToPlayerList.length;j++){
