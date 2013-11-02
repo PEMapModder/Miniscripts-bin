@@ -2,6 +2,7 @@ var elementalOxesList=[];
 var leadedEntToPlayerList=[];
 var leadedEntToFencePostList=[];
 ModPE.setItem(140,15,15,"Lead");//whatever x and y
+ModPE.setItem(141,15,15,"Elemental wolf spawn egg");
 function entityAddedHook(v){
   if(Entity.getEntityTypeId(v)==11){
     if(Math.random()<0.5){
@@ -9,7 +10,7 @@ function entityAddedHook(v){
       var coorY=Entity.getY(v);
       var coorZ=Entity.getZ(v);
       Entity.setPosition(v,127,0,127);
-      Level.spawnMob(coorX,coorY,coorZ,11);
+      v=Level.spawnMob(coorX,coorY,coorZ,11);
       elementalOxesList[elementalOxesList.length]=v;
     }
   }
@@ -20,6 +21,12 @@ function useItem(x,y,z,i,b,s){
       leadedEntToFencePostList[leadedEntToFencePostList.length]=[leadedEntToPlayerList[i],x,y,z];
     }
     leadedEntToPlayerList=[];
+  }
+  if(i==141){
+    //You mamage the side things
+    var newWolf=Level.spawnMob(10);
+    //add to array ... Im lazy
+    Entity.setRenderType(newWolf,13);
   }
 }
 /**********************************************************
@@ -50,7 +57,7 @@ function deathHook(m,v){
      	    preventDefault();
           var vX=Entity.getX(v),vY=Entity.getY(v),vZ=Entity.getZ(v);   
           Entity.setPosition(v,128,-1,128);
-          Level.dropItem(vX,vY,vZ,1,141,Math.floor(4*Math.random()));
+          Level.dropItem(vX,vY,vZ,1,141,Math.floor(40*Math.random()));
      }
 }
 function modTick(){
