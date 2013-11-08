@@ -1,3 +1,5 @@
+//Thu script with wrong class usage is copyright-free
+//No need to give me credits
 class MathExt extends Math{
   function randomBelow(in){
     if(in%1!=0){
