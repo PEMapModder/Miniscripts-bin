@@ -1,4 +1,6 @@
+var com,android,java;
 var window=null;
+var tmiOn=false;
 function newLevel(){
   var context=com.mojang.minecraftpe.MainActivity.currentMainActivity().get();
   context.runOnUiThread(new java.lang.Runnable({run:function(){
@@ -12,8 +14,16 @@ function newLevel(){
     }));
     var layout=new android.widget.RelativeLayout(context);
     layout.addView(show,new android.view.ViewGroup.LayoutParams(android.widget.RelativeLayout.WRAP_CONTENT,android.widget.RelativeLayout.WRAP_CONTENT));
-    
+    context.setContentView(layout);
   }}));
+}
+function toggleTmi(){
+	if(tmiOn==false){
+		tmiOn=true;
+	}
+	if(tmiOn==true){
+		tmiOn=false;
+	}
 }
 function leaveGame(){
   if(window==null)return;
