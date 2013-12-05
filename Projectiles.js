@@ -11,7 +11,7 @@ var POP_E_RENDERID=0,POP_E_ENTITYID=1,POP_E_NATIVE_ENTITY;
 function projectileUpdateListener(listenerId,projectile){
   switch(listenerId){
 
-//your listeners here
+    //your listeners here
 
 
         break;default:return false;break;
@@ -30,7 +30,7 @@ function project(x,y,z,s,y,p,rT,cG){
   var result=[vX+x,vY-cG*rT+y,vZ+z];
   return result;
 }
-/*@Override function modTick()*/ function projectileHandler(){
+/*extends function modTick()*/ function projectileHandler(){
   for(var id=0;id<projectiles.length;id++){
         var obj=projectiles[id];
         if(obj==false)continue;
@@ -47,9 +47,43 @@ function project(x,y,z,s,y,p,rT,cG){
 }
 function projectileUpdateHandler(p,c){
   if(p[PROJECTILE_OBJECT_TYPE]==PROJECTILE_TYPE_BLOCK]){
-        Level.setTile(c[X_AXIS],c[Y_AXIS],c[Z_AXIS],p[POP_B_ID],p[POP_B_DAMAGE]); // I just realized that in the whole script addon this is the only one that uses ModPE functions. lol.
+        Level.setTile(c[X_AXIS],c[Y_AXIS],c[Z_AXIS],p[PROJECTILE_OBJECT_PARAMS][POP_B_ID],p[PROJECTILE_OBJECT_PARAMS][POP_B_DAMAGE]); // I just realized that in the whole script addon this is the only one that uses ModPE functions. lol.
   }
   else{
         Entity.setPosition(p[PROJCTILE_OBJECT_PARAMS][POP_E_NATIVE_ENTITY],c[X_AXIS],c[Y_AXIS],c[Z_AXIS]);
   }
+}
+/**
+ *  @return projectileParams Projectile params object (projectiles[i][12])
+ *  @param type Type between PROJECTILE_TYPE_BLOCK and PROJECTIL_TYPE_ENTITY of the projectile
+ *  For type==PROJECTILE_TYPE_BLOCK:
+ *    @param paramA Projectile block type
+ *    @param paramB Projectile block damage
+ *  For type==PROJECTILE_TYPE_ENTITY:
+ *    For paramA instanceof NativeEntity:
+ *      @param paramA It will be the handled projectile entity
+ *      @param paramB The render type of the entity
+ *    Else:
+ *      @param paramA Entity render id
+ *      @param paramB Entity behaviour id
+ *      @param x initial x-axis
+ *      @param y initial y-axis
+ *      @param z initial z-axus
+ *      @param texture Texture path in /assets
+ */
+function getParams(type, paramA, paramB, x, y, z, texture){
+  if(type==PROJECTILE_TYPE_BLOCK){
+    var result=[paramB,Entity.getEntityTypeId(paramA),paramA];
+    return result;
+  }
+  if(type==PROJECTILE_TYPE_ENTITY){
+    if(paramA instanceof NativeEntity){
+      var result=[paramA,paramB];
+      return result;
+    }
+    var entity=Level.spawnMob(x,y,z,paramB,texture);
+    Entity.setRenderType(entity, paramA);
+    return [paramA,paramB,entity];
+  }
+  return false;
 }
