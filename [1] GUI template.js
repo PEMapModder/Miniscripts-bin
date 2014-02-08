@@ -10,16 +10,17 @@ function newLevel(){
   ctx.runOnUiThread(new java.lang.Runnable({run:function(){
     try{
       myView=new android.widget.PopupWindow(ctx);
-      myView.setContentView(layout());
-      myView.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT);
+      myView.setContentView(getLayout());
+      myView.setBackgroundDrawable(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
       myView.showAtLocation(
           ctx.getWindow().getDecorView(),
           android.view.Gravity.LEFT|android.view.Gravity.TOP,
           0, 0);
       
+    }catch(e){print("error: "+e.toString());}
   }}));
 }
-function layout(){
+function getLayout(){
   var layout=new android.view.LinearLayout(ctx);
   var ttv=new android.view.Button(ctx);
   ttv.setText(android.R.ok);
